@@ -1,0 +1,147 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f8fafc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 460px;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    text-align: center;
+}
+
+h2 {
+    color: #1e293b;
+    font-size: 28px;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.input-group {
+    margin-bottom: 16px;
+    position: relative;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 16px;
+    background-color: #f4f5f7;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #333;
+    outline: none;
+    transition: background 0.2s;
+}
+
+.input-group input::placeholder {
+    color: #a3aed0;
+}
+
+.input-group input:focus {
+    background-color: #edf0f5;
+}
+
+/* Parol inputi ichidagi ko'zcha */
+.password-group {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #1e293b;
+    font-size: 18px;
+}
+
+/* Checkbox va Forget Password qismi */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    font-size: 14px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #707eae;
+}
+
+.remember-me input {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #a3aed0;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.forget-password {
+    color: #00a3b1;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* Sign In Tugmasi */
+.submit-btn {
+    width: 100%;
+    background-color: #00a3b1;
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+}
+
+.submit-btn:hover {
+    background-color: #008c99;
+}
+
+/* Pastki qism */
+.signup-text {
+    margin-top: 24px;
+    font-size: 14px;
+    color: #707eae;
+}
+
+.signup-text a {
+    color: #00a3b1;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Mavjud CSS faylingiz oxiriga qo'shib qo'ying */
+.login-card {
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    border: 1px solid #00a3b1;
+    background-color: #ffffff;
+}
