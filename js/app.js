@@ -1,4 +1,42 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // === 0. Path Detection ===
+  const isRoot = !window.location.pathname.includes("/pages/");
+  const prefix = isRoot ? "." : "..";
+
+  // === 1. Login State Handler ===
+  function updateNavbarForLoginState() {
+    const currentUser = JSON.parse(localStorage.getItem("comforty_current_user"));
+    
+    // Desktop navbar account link
+    const desktopAccountLink = document.querySelector('header a[href*="pages/login.html"], header a[href*="pages/profile.html"]');
+    if (desktopAccountLink) {
+      if (currentUser) {
+        desktopAccountLink.href = `${prefix}/pages/profile.html`;
+        desktopAccountLink.title = currentUser.name;
+        desktopAccountLink.innerHTML = `<i class="fa-regular fa-user text-lg"></i>`;
+      } else {
+        desktopAccountLink.href = `${prefix}/pages/login.html`;
+        desktopAccountLink.title = "Account";
+        desktopAccountLink.innerHTML = `<i class="fa-regular fa-user text-lg"></i>`;
+      }
+    }
+
+    // Mobile bottom nav account link
+    const mobileAccountLink = document.querySelector('#mobile-bottom-nav a[href*="pages/login.html"], #mobile-bottom-nav a[href*="pages/profile.html"]');
+    if (mobileAccountLink) {
+      if (currentUser) {
+        mobileAccountLink.href = `${prefix}/pages/profile.html`;
+        mobileAccountLink.querySelector('span').textContent = currentUser.name.split(' ')[0];
+      } else {
+        mobileAccountLink.href = `${prefix}/pages/login.html`;
+        mobileAccountLink.querySelector('span').textContent = "Account";
+      }
+    }
+  }
+
+  // Call the function on page load
+  updateNavbarForLoginState();
+
   // === 1. DOM Elementlarni chaqirib olish ===
   const searchToggle = document.getElementById("mobile-search-toggle");
   const mobileSearchBar = document.getElementById("mobile-search-bar");
@@ -47,54 +85,58 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // === 3. Slayder Logikasi ===
-  let currentSlide = 0;
-  const totalSlides = slides.length;
+  if (slides.length > 0 && prevBtn && nextBtn) {
+    let currentSlide = 0;
+    const totalSlides = slides.length;
 
-  function updateSlider(index) {
-    slides.forEach((slide, i) => {
-      if (i === index) {
-        slide.classList.remove("hidden", "opacity-0");
-        slide.classList.add("block", "opacity-100");
-      } else {
-        slide.classList.remove("block", "opacity-100");
-        slide.classList.add("hidden", "opacity-0");
-      }
-    });
+    function updateSlider(index) {
+      slides.forEach((slide, i) => {
+        if (i === index) {
+          slide.classList.remove("hidden", "opacity-0");
+          slide.classList.add("block", "opacity-100");
+        } else {
+          slide.classList.remove("block", "opacity-100");
+          slide.classList.add("hidden", "opacity-0");
+        }
+      });
 
-    dots.forEach((dot, i) => {
-      if (i === index) {
-        dot.classList.remove("bg-gray-300");
-        dot.classList.add("bg-[#272343]", "w-5");
-      } else {
-        dot.classList.remove("bg-[#272343]", "w-5");
-        dot.classList.add("bg-gray-300");
-      }
-    });
-  }
+      dots.forEach((dot, i) => {
+        if (i === index) {
+          dot.classList.remove("bg-gray-300");
+          dot.classList.add("bg-[#272343]", "w-5");
+        } else {
+          dot.classList.remove("bg-[#272343]", "w-5");
+          dot.classList.add("bg-gray-300");
+        }
+      });
+    }
 
-  nextBtn.addEventListener("click", () => {
-    currentSlide = (currentSlide + 1) % totalSlides;
-    updateSlider(currentSlide);
-  });
-
-  prevBtn.addEventListener("click", () => {
-    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-    updateSlider(currentSlide);
-  });
-
-  dots.forEach((dot) => {
-    dot.addEventListener("click", (e) => {
-      currentSlide = parseInt(e.target.getAttribute("data-index"));
+    nextBtn.addEventListener("click", () => {
+      currentSlide = (currentSlide + 1) % totalSlides;
       updateSlider(currentSlide);
     });
-  });
 
-  setInterval(() => {
-    currentSlide = (currentSlide + 1) % totalSlides;
+    prevBtn.addEventListener("click", () => {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateSlider(currentSlide);
+    });
+
+    dots.forEach((dot) => {
+      dot.addEventListener("click", (e) => {
+        currentSlide = parseInt(e.target.getAttribute("data-index"));
+        updateSlider(currentSlide);
+      });
+    });
+
+    setInterval(() => {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateSlider(currentSlide);
+    }, 5000);
+
     updateSlider(currentSlide);
-  }, 5000);
+  }
 
-  updateSlider(currentSlide);
+
 
   // === 4. Mahsulotlar (Kengaytirilgan Baza) ===
   const productsData = [
@@ -222,6 +264,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // === 5. Mahsulotlarni chizish (Responsive dizayn yaxshilandi) ===
   function renderProducts(products) {
+    if (!productsContainer) return;
     productsContainer.innerHTML = "";
 
     if (products.length === 0) {
@@ -324,5 +367,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Dastlabki render
-  renderProducts(productsData);
+  if (productsContainer) {
+    renderProducts(productsData);
+  }
 });

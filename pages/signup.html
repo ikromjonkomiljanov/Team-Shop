@@ -1,68 +1,395 @@
 <!doctype html>
-<html lang="uz">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign Up</title>
+    <title>Sign Up - Comforty Shop</title>
+    <link rel="icon" href="../imgs/logo.svg" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
-    <link rel="stylesheet" href="/css/login.css" />
   </head>
-  <body>
-    <div class="login-card">
-      <h2>Sign Up</h2>
+  <body class="bg-gray-50 pb-20 md:pb-0">
+    <header
+      class="w-full bg-[#F0F2F3] py-3 px-4 md:px-10 lg:px-28 sticky top-0 z-40 shadow-sm md:shadow-none"
+    >
+      <div
+        class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4"
+      >
+        <div class="flex items-center justify-between w-full md:w-auto">
+          <a href="../index.html" class="flex items-center gap-2 shrink-0">
+            <div
+              class="bg-[#029FAE] p-2.5 rounded-xl text-white text-xl flex items-center justify-center"
+            >
+              <i class="fa-solid fa-couch"></i>
+            </div>
+            <span class="text-[#272343] text-xl font-semibold tracking-wide"
+              >Comforty</span
+            >
+          </a>
 
-      <form id="signupForm">
-        <div class="input-group">
-          <input type="text" id="fullName" placeholder="Full Name" required />
+          <button
+            id="mobile-search-toggle"
+            class="md:hidden bg-white p-3 rounded-lg text-[#272343] border border-gray-100 flex items-center justify-center cursor-pointer hover:bg-gray-50"
+          >
+            <i class="fa-solid fa-magnifying-glass text-lg"></i>
+          </button>
         </div>
 
-        <div class="input-group">
-          <input type="email" id="email" placeholder="Email" required />
-        </div>
-
-        <div class="input-group password-group">
+        <div class="hidden md:flex flex-1 max-w-xl relative">
           <input
-            type="password"
-            id="password"
-            placeholder="Password"
-            required
+            id="desktop-search"
+            type="text"
+            placeholder="Search here..."
+            class="w-full bg-white text-[#272343] pl-5 pr-12 py-3 rounded-lg border border-transparent outline-none focus:border-[#029FAE] transition-all text-sm placeholder:text-gray-400"
           />
-          <i class="fa-regular fa-eye toggle-password" id="togglePassword"></i>
+          <button
+            id="desktop-search-btn"
+            class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-600 hover:text-[#029FAE] cursor-pointer"
+          >
+            <i class="fa-solid fa-magnifying-glass text-lg"></i>
+          </button>
         </div>
 
-        <div class="input-group password-group">
+        <div class="hidden md:flex items-center gap-3">
+          <a
+            href="#"
+            class="flex items-center gap-3 bg-white px-4 py-2.5 rounded-lg hover:shadow-sm transition-all border border-gray-100"
+          >
+            <i class="fa-solid fa-cart-shopping text-[#272343] text-lg"></i>
+            <span class="text-[#272343] font-medium text-sm">Cart</span>
+            <span
+              class="bg-[#007580] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold"
+              >2</span
+            >
+          </a>
+          <a
+            href="#"
+            class="bg-white p-3 rounded-lg text-[#272343] hover:text-red-500 hover:shadow-sm transition-all border border-gray-100 flex items-center justify-center"
+            title="Favorites"
+          >
+            <i class="fa-regular fa-heart text-lg"></i>
+          </a>
+          <a
+            href="../pages/login.html"
+            class="bg-white p-3 rounded-lg text-[#272343] hover:text-[#029FAE] hover:shadow-sm transition-all border border-gray-100 flex items-center justify-center"
+            title="Account"
+          >
+            <i class="fa-regular fa-user text-lg"></i>
+          </a>
+        </div>
+
+        <div
+          id="mobile-search-bar"
+          class="hidden relative w-full md:hidden mt-2 transition-all duration-300"
+        >
           <input
-            type="password"
-            id="confirmPassword"
-            placeholder="Confirm Password"
-            required
+            id="mobile-search"
+            type="text"
+            placeholder="Search products..."
+            class="w-full bg-white text-[#272343] pl-5 pr-12 py-3 rounded-lg border border-gray-200 outline-none focus:border-[#029FAE] text-sm shadow-sm"
           />
-          <i
-            class="fa-regular fa-eye toggle-password"
-            id="toggleConfirmPassword"
-          ></i>
+          <button
+            id="mobile-search-btn"
+            class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-600 cursor-pointer hover:text-[#029FAE]"
+          >
+            <i class="fa-solid fa-magnifying-glass text-lg"></i>
+          </button>
         </div>
+      </div>
+    </header>
 
-        <div class="form-options">
-          <label class="remember-me">
-            <input type="checkbox" id="terms" required />
-            <span>I agree to the Terms & Conditions</span>
-          </label>
-        </div>
-
-        <button type="submit" class="submit-btn">
-          Sign Up <i class="fa-solid fa-arrow-right"></i>
-        </button>
-      </form>
-
-      <p class="signup-text">
-        Already have an account? <a href="/pages/login.html">Sign In</a>
-      </p>
+    <div
+      id="mobile-bottom-nav"
+      class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-xl px-6 py-2 flex justify-around items-center md:hidden z-50 transition-transform duration-300 transform translate-y-0"
+    >
+      <a href="../index.html" class="flex flex-col items-center gap-1 text-gray-500">
+        <i class="fa-solid fa-house text-xl"></i>
+        <span class="text-xs font-medium">Home</span>
+      </a>
+      <a
+        href="#"
+        class="flex flex-col items-center gap-1 text-gray-500 relative"
+      >
+        <i class="fa-solid fa-cart-shopping text-xl"></i>
+        <span class="text-xs font-medium">Cart</span>
+        <span
+          class="absolute -top-1.5 -right-2.5 bg-[#007580] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold"
+          >2</span
+        >
+      </a>
+      <a href="#" class="flex flex-col items-center gap-1 text-gray-500">
+        <i class="fa-regular fa-heart text-xl"></i>
+        <span class="text-xs font-medium">Favorites</span>
+      </a>
+      <a
+        href="../pages/login.html"
+        class="flex flex-col items-center gap-1 text-[#029FAE]"
+      >
+        <i class="fa-regular fa-user text-xl"></i>
+        <span class="text-xs font-medium">Account</span>
+      </a>
     </div>
 
-    <script src="/js/signup.js"></script>
+    <main class="min-h-[calc(100vh-200px)] flex items-center justify-center p-8">
+      <div class="bg-white w-full max-w-md p-8 rounded-2xl shadow-lg">
+        <h2 class="text-[#272343] text-2xl font-bold mb-6 text-center">Sign Up</h2>
+
+        <form id="signupForm">
+          <div class="mb-4">
+            <input
+              type="text"
+              id="fullName"
+              placeholder="Full Name"
+              required
+              class="w-full px-4 py-3 bg-[#F0F2F3] rounded-lg text-[#272343] placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-[#029FAE] transition-all"
+            />
+            <p id="nameError" class="text-red-500 text-xs mt-1 hidden"></p>
+          </div>
+
+          <div class="mb-4">
+            <input
+              type="email"
+              id="email"
+              placeholder="Email"
+              required
+              class="w-full px-4 py-3 bg-[#F0F2F3] rounded-lg text-[#272343] placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-[#029FAE] transition-all"
+            />
+            <p id="emailError" class="text-red-500 text-xs mt-1 hidden"></p>
+          </div>
+
+          <div class="mb-4 relative">
+            <input
+              type="password"
+              id="password"
+              placeholder="Password"
+              required
+              class="w-full px-4 py-3 bg-[#F0F2F3] rounded-lg text-[#272343] placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-[#029FAE] transition-all pr-12"
+            />
+            <i
+              class="fa-regular fa-eye absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer hover:text-[#029FAE] transition-colors"
+              id="togglePassword"
+            ></i>
+            <p id="passwordError" class="text-red-500 text-xs mt-1 hidden"></p>
+          </div>
+
+          <div class="mb-4 relative">
+            <input
+              type="password"
+              id="confirmPassword"
+              placeholder="Confirm Password"
+              required
+              class="w-full px-4 py-3 bg-[#F0F2F3] rounded-lg text-[#272343] placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-[#029FAE] transition-all pr-12"
+            />
+            <i
+              class="fa-regular fa-eye absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer hover:text-[#029FAE] transition-colors"
+              id="toggleConfirmPassword"
+            ></i>
+            <p id="confirmPasswordError" class="text-red-500 text-xs mt-1 hidden"></p>
+          </div>
+
+          <div id="formError" class="mb-4 text-red-500 text-sm text-center hidden"></div>
+          <div id="formSuccess" class="mb-4 text-green-500 text-sm text-center hidden"></div>
+
+          <div class="mb-6">
+            <label class="flex items-start gap-2 text-sm text-gray-600 cursor-pointer">
+              <input type="checkbox" id="terms" required class="w-4 h-4 mt-0.5 rounded border-gray-300 text-[#029FAE] focus:ring-[#029FAE]" />
+              <span>I agree to the Terms & Conditions</span>
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-[#029FAE] hover:bg-[#007580] text-white font-medium py-3 rounded-lg transition-colors flex items-center justify-center gap-2"
+          >
+            Sign Up <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </form>
+
+        <p class="text-center text-sm text-gray-600 mt-6">
+          Already have an account? <a href="../pages/login.html" class="text-[#029FAE] font-semibold hover:underline">Sign In</a>
+        </p>
+      </div>
+    </main>
+
+    <footer
+      class="w-full bg-white pt-16 pb-8 border-t border-gray-100"
+    >
+      <div class="max-w-7xl mx-auto px-4 md:px-10 lg:px-28">
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-6 lg:gap-12 pb-14 border-b border-gray-100"
+        >
+          <div class="flex flex-col gap-5">
+            <a href="../index.html" class="flex items-center gap-2">
+              <div
+                class="bg-[#029FAE] p-2 rounded-xl text-white text-lg flex items-center justify-center w-10 h-10 shrink-0"
+              >
+                <i class="fa-solid fa-couch"></i>
+              </div>
+              <span class="text-[#272343] text-xl font-semibold tracking-wide"
+                >Comforty</span
+              >
+            </a>
+            <p class="text-gray-400 text-sm leading-relaxed max-w-[280px]">
+              Vivamus tristique odio sit amet velit semper, eu posuere turpis
+              interdum. Cras egestas purus.
+            </p>
+            <div class="flex items-center gap-2 mt-2">
+              <a
+                href="#"
+                class="w-9 h-9 rounded-full border border-[#029FAE] text-[#029FAE] hover:bg-[#029FAE] hover:text-white flex items-center justify-center transition-all duration-200"
+              >
+                <i class="fa-brands fa-facebook-f text-xs"></i>
+              </a>
+              <a
+                href="#"
+                class="w-9 h-9 rounded-full text-gray-400 hover:border-gray-300 hover:text-gray-600 flex items-center justify-center transition-all duration-200"
+              >
+                <i class="fa-brands fa-twitter text-xs"></i>
+              </a>
+              <a
+                href="#"
+                class="w-9 h-9 rounded-full text-gray-400 hover:border-gray-300 hover:text-gray-600 flex items-center justify-center transition-all duration-200"
+              >
+                <i class="fa-brands fa-instagram text-sm"></i>
+              </a>
+              <a
+                href="#"
+                class="w-9 h-9 rounded-full text-gray-400 hover:border-gray-300 hover:text-gray-600 flex items-center justify-center transition-all duration-200"
+              >
+                <i class="fa-brands fa-pinterest-p text-xs"></i>
+              </a>
+              <a
+                href="#"
+                class="w-9 h-9 rounded-full text-gray-400 hover:border-gray-300 hover:text-gray-600 flex items-center justify-center transition-all duration-200"
+              >
+                <i class="fa-brands fa-youtube text-xs"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-4">
+            <h4
+              class="text-xs font-semibold text-gray-400 uppercase tracking-wider"
+            >
+              Category
+            </h4>
+            <ul class="flex flex-col gap-3 text-sm text-gray-600">
+              <li>
+                <a href="#" class="hover:text-[#029FAE] transition-colors"
+                  >Sofa</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-[#029FAE] transition-colors"
+                  >Armchair</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-[#029FAE] transition-colors"
+                  >Wing Chair</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-[#029FAE] underline decoration-1 underline-offset-4 font-medium"
+                  >Desk Chair</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-[#029FAE] transition-colors"
+                  >Wooden Chair</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-[#029FAE] transition-colors"
+                  >Park Bench</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="flex flex-col gap-4">
+            <h4
+              class="text-xs font-semibold text-gray-400 uppercase tracking-wider"
+            >
+              Support
+            </h4>
+            <ul class="flex flex-col gap-3 text-sm text-gray-600">
+              <li>
+                <a href="#" class="hover:text-[#029FAE] transition-colors"
+                  >Help & Support</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-[#029FAE] transition-colors"
+                  >Terms & Conditions</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-[#029FAE] transition-colors"
+                  >Privacy Policy</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-[#029FAE] transition-colors"
+                  >Help</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="flex flex-col gap-4">
+            <h4
+              class="text-xs font-semibold text-gray-400 uppercase tracking-wider"
+            >
+              Newsletter
+            </h4>
+            <form
+              class="flex flex-col sm:flex-row gap-3 w-full"
+              onsubmit="event.preventDefault()"
+            >
+              <input
+                type="email"
+                placeholder="Your email"
+                class="flex-1 px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-[#272343] placeholder:text-gray-400 outline-none focus:border-[#029FAE] transition-all"
+                required
+              />
+              <button
+                type="submit"
+                class="bg-[#029FAE] hover:bg-[#0b838f] text-white font-medium text-sm px-5 py-2.5 rounded-lg transition-colors duration-200 cursor-pointer shrink-0"
+              >
+                Subscribe
+              </button>
+            </form>
+            <p class="text-gray-400 text-xs leading-relaxed mt-1">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
+              tincidunt erat enim.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 text-sm text-gray-400"
+        >
+          <p class="text-center sm:text-left text-xs md:text-sm">
+            &copy; 2026 - Comforty Shop - All rights reserved
+          </p>
+
+          <div
+            class="flex items-center gap-4 text-xl opacity-60 filter grayscale hover:grayscale-0 transition-all duration-300"
+          >
+            <i class="fa-brands fa-cc-mastercard text-gray-600"></i>
+            <i class="fa-brands fa-cc-paypal text-gray-600"></i>
+            <i class="fa-brands fa-cc-visa text-gray-600"></i>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="../js/app.js"></script>
+    <script src="../js/signup.js"></script>
   </body>
 </html>
