@@ -12,12 +12,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (desktopAccountLink) {
       if (currentUser) {
         desktopAccountLink.href = `${prefix}/pages/profile.html`;
-        desktopAccountLink.title = currentUser.name;
-        desktopAccountLink.innerHTML = `<i class="fa-regular fa-user text-lg"></i>`;
+        desktopAccountLink.className = "flex items-center gap-3 bg-white px-4 py-2.5 rounded-lg text-[#272343] hover:shadow-sm transition-all border border-gray-100";
+        desktopAccountLink.innerHTML = `<i class="fa-regular fa-user text-lg"></i> <span class="hidden md:inline font-medium text-sm">${currentUser.name.split(' ')[0]}</span>`;
       } else {
         desktopAccountLink.href = `${prefix}/pages/login.html`;
         desktopAccountLink.title = "Account";
-        desktopAccountLink.innerHTML = `<i class="fa-regular fa-user text-lg"></i>`;
+        desktopAccountLink.className = "flex items-center gap-3 bg-white px-4 py-2.5 rounded-lg text-[#272343] hover:shadow-sm transition-all border border-gray-100";
+        desktopAccountLink.innerHTML = `<i class="fa-regular fa-user text-lg"></i> <span class="hidden md:inline font-medium text-sm">Account</span>`;
       }
     }
 

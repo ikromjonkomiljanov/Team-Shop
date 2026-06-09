@@ -1,15 +1,12 @@
 // Elementlarni tanlash
 const passwordInput = document.getElementById('password');
-const confirmPasswordInput = document.getElementById('confirmPassword');
 const togglePassword = document.getElementById('togglePassword');
-const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
 const signupForm = document.getElementById('signupForm');
 
 // Error elementlari
 const nameError = document.getElementById('nameError');
 const emailError = document.getElementById('emailError');
 const passwordError = document.getElementById('passwordError');
-const confirmPasswordError = document.getElementById('confirmPasswordError');
 const formError = document.getElementById('formError');
 const formSuccess = document.getElementById('formSuccess');
 
@@ -21,8 +18,6 @@ function clearErrors() {
     emailError.classList.add('hidden');
     passwordError.textContent = '';
     passwordError.classList.add('hidden');
-    confirmPasswordError.textContent = '';
-    confirmPasswordError.classList.add('hidden');
     formError.textContent = '';
     formError.classList.add('hidden');
     formSuccess.textContent = '';
@@ -43,14 +38,6 @@ togglePassword.addEventListener('click', function () {
     this.classList.toggle('fa-eye-slash');
 });
 
-// Parol tasdig'ini ko'rsatish/yashirish
-toggleConfirmPassword.addEventListener('click', function () {
-    const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-    confirmPasswordInput.setAttribute('type', type);
-    this.classList.toggle('fa-eye');
-    this.classList.toggle('fa-eye-slash');
-});
-
 // Email formatini tekshirish
 function isValidEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -65,7 +52,6 @@ signupForm.addEventListener('submit', function (e) {
     const name = document.getElementById('fullName').value.trim();
     const email = document.getElementById('email').value.trim();
     const password = passwordInput.value.trim();
-    const confirmPassword = confirmPasswordInput.value.trim();
     const terms = document.getElementById('terms').checked;
     
     // Validatsiya
@@ -87,14 +73,6 @@ signupForm.addEventListener('submit', function (e) {
     }
     if (password.length < 6) {
         showError(passwordError, 'Password must be at least 6 characters.');
-        return;
-    }
-    if (!confirmPassword) {
-        showError(confirmPasswordError, 'Please confirm your password.');
-        return;
-    }
-    if (password !== confirmPassword) {
-        showError(confirmPasswordError, 'Passwords do not match.');
         return;
     }
     if (!terms) {
@@ -122,10 +100,12 @@ signupForm.addEventListener('submit', function (e) {
     users.push(newUser);
     localStorage.setItem("comforty_users", JSON.stringify(users));
     
-    formSuccess.textContent = 'Registration successful! Redirecting to login...';
+    formSuccess.textContent = 'Registration successful! Redirecting to profile...';
     formSuccess.classList.remove('hidden');
     
+    localStorage.setItem("comforty_current_user", JSON.stringify(newUser));
+    
     setTimeout(() => {
-        window.location.href = "../pages/login.html";
+        window.location.href = "../pages/profile.html";
     }, 1500);
 });
